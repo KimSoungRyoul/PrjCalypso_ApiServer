@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/calypso_local_db?useSSL=false&characterEncoding=utf8
+    username: root
+    password: 1234

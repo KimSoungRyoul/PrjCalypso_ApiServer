@@ -3,10 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.prj.calypso_apiserver.persistence.MemberMapper">
+<mapper namespace="org.givenness.backend.persistence.MemberMapper">
 
-  <select id="selectMember" resultType="memberAccount">
-    SELECT *
+  <select id="selectMember" resultType="org.givenness.backend.domain.member.MemberAccount">
+    SELECT
+      member_id as memberId,
+     `password`
       FROM member_account
     WHERE serial_num = #{serialNum}
   </select>

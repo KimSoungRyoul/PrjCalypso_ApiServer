@@ -7,9 +7,7 @@ import org.apache.ibatis.type.DateTypeHandler;
 import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -21,8 +19,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
  * 하나씩 매퍼를 모두 등록할 필요가 없다. 대신 클래스패스를 지정해서 마이바티스 스프링 연동모듈의 자동스캔기능
  * @Configuration 라고 불리는 스프링의 자바설정을 사용
  */
-@Configuration//MyBatis 세팅
-@MapperScan(value = "org.givenness.backend.persistence")//DAO Mapper Setting
+
+@Deprecated
+//@Configuration//MyBatis 세팅
+//@MapperScan(value = "org.givenness.backend.persistence")//DAO Mapper Setting
+//@EnableAutoConfiguration
 public class MyBatisConfiguration {
 
     /**

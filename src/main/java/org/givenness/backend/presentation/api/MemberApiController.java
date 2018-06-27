@@ -14,7 +14,7 @@ public class MemberApiController {
   @GetMapping
   public String getMemberInfo(@RequestParam("mtype") String mType) {
 
-    return null;
+    return "asfasdf";
   }
 
 }

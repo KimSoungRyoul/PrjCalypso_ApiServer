@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/volunteer")
+@RequestMapping("/volunteer")
 @Api(description = "자원봉사관련 API")
 public class VolunteerApiController {
 

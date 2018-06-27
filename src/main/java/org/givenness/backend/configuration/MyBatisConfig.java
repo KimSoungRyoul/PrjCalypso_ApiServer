@@ -7,6 +7,7 @@ import org.apache.ibatis.type.DateTypeHandler;
 import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -31,6 +32,7 @@ public abstract class MyBatisConfig {
     sessionFactoryBean.setConfigLocation(pathResolver.getResource(CONFIG_LOCATION_PATH));
     sessionFactoryBean.setMapperLocations(pathResolver.getResources(MAPPER_LOCATIONS_PATH));
     sessionFactoryBean.setTypeHandlers(new TypeHandler[]{new DateTypeHandler()});
+    sessionFactoryBean.setVfs(SpringBootVFS.class);
 
   }
 }

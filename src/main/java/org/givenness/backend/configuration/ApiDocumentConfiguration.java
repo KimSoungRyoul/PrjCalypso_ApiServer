@@ -26,20 +26,21 @@ public class ApiDocumentConfiguration {
         .apiInfo(apiInfo())
         .select()
 
-        .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.ant("/api/**"))
-        //.paths(PathSelectors.any())
+        .apis(RequestHandlerSelectors.basePackage("org.givenness.backend.presentation.api"))
+
+        //.paths(PathSelectors.ant("/api"))
+        .paths(PathSelectors.any())
         .build();
 
   }
 
   private ApiInfo apiInfo() {
     Contact contact = new Contact("칼립소", "https://github.com/KimSoungRyoul/prjArachne_ApiServer",
-        "no Mail");
+        "KimSoungRyoul@gmail");
     String license = "본 프로젝트는 Apache2.0 License를 따릅니다.";
     String licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0";
     String title = "프로보노 ";
-    String description = "프로보노 프로젝트 서버 API문서.";
+    String description = "프로보노 프로젝트 서버 API문서. \" /api가 기본경로로 붙어있다 참고!!!!\" ";
 
     return new ApiInfoBuilder()
         .contact(contact)

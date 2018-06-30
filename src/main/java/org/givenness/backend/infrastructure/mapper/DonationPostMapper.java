@@ -31,4 +31,5 @@ public interface DonationPostMapper {
      * - 구체적인 사용은 미정
      */
     //int countPost();
+    //TODO: 무한 스크롤, UI 등 종화랑 애기해서 백에서 필요한거 만들기
 }

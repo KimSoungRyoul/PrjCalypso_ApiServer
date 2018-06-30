@@ -3,13 +3,52 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.givenness.backend.infrastructure.mapper.MemberMapper">
+<mapper namespace="org.givenness.backend.infrastructure.mapper.ReplyMapper">
 
-    <select id="selectMember" resultType="memberAccount">
+    <insert id="insertReply" parameterType="org.givenness.backend.model.post.Reply">
+        INSERT INTO
+        REPLY(
+        SERIAL_NUM,
+        REPLY_OWNED_POST_ID,
+        PARENT_REPLY,
+        REG_DATE,
+        WRITER_NAME,
+        REPLY_OWNER)
+        VALUES(
+        #{serialNum},
+        #{replyOwnedPostId},
+        #{parentReply},
+        #{regDate},
+        #{writerName},
+        #{replyOwner},
+        #{replies})
+    </insert>
+
+    <select id="selectAllReply" resultType="org.givenness.backend.model.post.Reply">
         SELECT
         *
-        FROM member_account
+        FROM REPLY
+    </select>
+
+    <select id="selectReply" parameterType="int" resultType="org.givenness.backend.model.post.Reply">
+        SELECT
+        *
+        FROM REPLY
         WHERE serial_num = #{serialNum}
     </select>
 
+    <update id="updateReply" parameterType="org.givenness.backend.model.post.Reply">
+        UPDATE REPLY
+        SET
+        <if test="title != null">
+            WRITER_NAME = #{writerName}
+        </if>
+        WHERE serial_num = #{serialNum}
+    </update>
+
+    <delete id="deleteReply" parameterType="int">
+        DELETE FROM REPLY
+        WHERE serial_num = #{serialNum}
+    </delete>
+    
 </mapper>

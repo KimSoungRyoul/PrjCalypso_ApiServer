@@ -35,7 +35,7 @@
         FROM DONATION_POST
     </select>
 
-    <select id="insertPost" parameterType="int" resultType="org.givenness.backend.model.post.DonationPost">
+    <select id="selectPost" parameterType="int" resultType="org.givenness.backend.model.post.DonationPost">
         SELECT
         *
         FROM DONATION_POST

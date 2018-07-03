@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
-import org.givenness.backend.model.member.TheMarginalizedAdminMember;
 
 
 @Data
@@ -19,8 +18,7 @@ public class DonationPost {
   private Date regDate;
 
   //게시물 등록자
-
-  private TheMarginalizedAdminMember postOwner;
+  private String postOwner;
 
 
   @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")

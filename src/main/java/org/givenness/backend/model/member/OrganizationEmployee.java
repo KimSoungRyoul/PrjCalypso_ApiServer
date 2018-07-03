@@ -10,7 +10,7 @@ import lombok.Data;
 public class OrganizationEmployee {
 
 
-  public VolunteerMember joinedOrganization;
+  public VolunteerMemberInfo joinedOrganization;
 
   private long serialNum;
 

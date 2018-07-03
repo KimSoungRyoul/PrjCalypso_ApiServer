@@ -15,8 +15,11 @@
 *.iws
 *.iml
 *.ipr
-.mvn
 target
+.mvn
+mvnw
+mvnw.cmd
+
 
 
 ### NetBeans ###

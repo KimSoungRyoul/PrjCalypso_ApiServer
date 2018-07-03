@@ -5,20 +5,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.givenness.backend.model.member.MemberAccount;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Mapper
 @Repository
 public interface MemberMapper {
 
-  MemberAccount createMember();
+  MemberAccount selectMember(String memberId);
 
-  MemberAccount selectMember(long serialNum);
+  //VolunteerMemberInfo selectVolunteerMemberOne();
 
-  List<MemberAccount> findAllMember();
-
-  MemberAccount updateMember();
-
-  MemberAccount deleteMemeber();
 
 }

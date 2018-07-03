@@ -5,11 +5,30 @@
 
 <mapper namespace="org.givenness.backend.infrastructure.mapper.MemberMapper">
 
-  <select id="selectMember" resultType="memberAccount">
-    SELECT
-      *
-      FROM member_account
-    WHERE serial_num = #{serialNum}
+  <resultMap autoMapping="true" id="memberAccountMap" type="MemberAccount">
+    <id column="serial_num" property="serialNum"/>
+    <collection autoMapping="true" ofType="MemberAuthority" property="grantedAuthList">
+      <id column="auth_serial_num" property="serialNum"/>
+    </collection>
+
+  </resultMap>
+
+
+  <select id="selectMember" resultMap="memberAccountMap">
+      SELECT m.serial_num as serial_num,
+        m.member_id,
+        m.`password`,
+        m.password_hint,
+        m.password_hint_answer,
+        m.reg_date,
+        m.image_serial_num,
+        ma.serial_num as auth_serial_num,
+        ma.authority_type,
+        ma.granted_date
+          FROM member_account m
+            left join  member_authority ma
+            on m.serial_num=ma.auth_owner_id
+            where m.member_id=#{memberId}
   </select>
 
 </mapper>

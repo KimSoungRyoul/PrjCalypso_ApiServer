@@ -5,7 +5,7 @@
 
 <mapper namespace="org.givenness.backend.infrastructure.mapper.ReplyMapper">
 
-    <insert id="insertReply" parameterType="org.givenness.backend.model.post.Reply">
+    <insert id="insertReply" parameterType="Reply">
         INSERT INTO
         REPLY(
         SERIAL_NUM,
@@ -15,29 +15,29 @@
         WRITER_NAME,
         REPLY_OWNER)
         VALUES(
-        #{serialNum},
-        #{replyOwnedPostId},
-        #{parentReply},
-        #{regDate},
-        #{writerName},
-        #{replyOwner},
-        #{replies})
+            #{serialNum},
+            #{replyOwnedPostId},
+            #{parentReplyId},
+            #{regDate},
+            #{writerName},
+            #{replyOwner}
+        )
     </insert>
 
-    <select id="selectAllReply" resultType="org.givenness.backend.model.post.Reply">
+    <select id="selectAllReply" resultType="Reply">
         SELECT
         *
         FROM REPLY
     </select>
 
-    <select id="selectReply" parameterType="int" resultType="org.givenness.backend.model.post.Reply">
+    <select id="selectReply" parameterType="long" resultType="Reply">
         SELECT
         *
         FROM REPLY
         WHERE serial_num = #{serialNum}
     </select>
 
-    <update id="updateReply" parameterType="org.givenness.backend.model.post.Reply">
+    <update id="updateReply" parameterType="Reply">
         UPDATE REPLY
         SET
         <if test="title != null">
@@ -46,7 +46,7 @@
         WHERE serial_num = #{serialNum}
     </update>
 
-    <delete id="deleteReply" parameterType="int">
+    <delete id="deleteReply" parameterType="long">
         DELETE FROM REPLY
         WHERE serial_num = #{serialNum}
     </delete>

@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import java.util.Date;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.givenness.backend.model.member.valueobj.AuthorityType;
 
 
 @Data
+@EqualsAndHashCode
 public class MemberAuthority {
 
 

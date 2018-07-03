@@ -38,4 +38,5 @@ public class MemberAccount {
   @JsonIgnore
   private long serialNum;
 
+
 }

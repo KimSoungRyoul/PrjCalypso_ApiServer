@@ -14,7 +14,7 @@ public class TestService {
 
   public void sdf() {
 
-    memberMapper.selectMember(1);
+    memberMapper.selectMember("sdf");
 
   }
 

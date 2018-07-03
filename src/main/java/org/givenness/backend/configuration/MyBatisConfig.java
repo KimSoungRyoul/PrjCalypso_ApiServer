@@ -4,7 +4,10 @@ import java.io.IOException;
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.DateTypeHandler;
+import org.apache.ibatis.type.EnumTypeHandler;
 import org.apache.ibatis.type.TypeHandler;
+import org.givenness.backend.model.member.valueobj.AuthorityType;
+import org.givenness.backend.model.member.valueobj.FileType;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
@@ -31,7 +34,9 @@ public abstract class MyBatisConfig {
     //sessionFactoryBean.setTypeAliasesPackage(ENTITY_PACKAGE_PREFIX);
     sessionFactoryBean.setConfigLocation(pathResolver.getResource(CONFIG_LOCATION_PATH));
     sessionFactoryBean.setMapperLocations(pathResolver.getResources(MAPPER_LOCATIONS_PATH));
-    sessionFactoryBean.setTypeHandlers(new TypeHandler[]{new DateTypeHandler()});
+    sessionFactoryBean.setTypeHandlers(new TypeHandler[]{new DateTypeHandler(),
+        new EnumTypeHandler(FileType.class),
+        new EnumTypeHandler(AuthorityType.class)});
     sessionFactoryBean.setVfs(SpringBootVFS.class);
 
   }

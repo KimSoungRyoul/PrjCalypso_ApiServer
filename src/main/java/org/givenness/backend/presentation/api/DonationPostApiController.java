@@ -1,5 +1,6 @@
 package org.givenness.backend.presentation.api;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/donation/posts")
+@RequestMapping("/posts")
+@Api(description = "게시판 관련 API")
 public class DonationPostApiController {
 
   @ApiOperation(value = "봉사활동 게시물 리스트 조회")

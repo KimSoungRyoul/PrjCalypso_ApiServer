@@ -32,7 +32,7 @@ public class MyBatisConfiguration {
      *  SQL을 처리하기위해 JDBC드라이버를 사용한다.
      *
      */
-    @Bean
+    //@Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource)throws Exception{
         SqlSessionFactoryBean sessionFactory=new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);

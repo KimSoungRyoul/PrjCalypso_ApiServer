@@ -5,7 +5,7 @@
 
 <mapper namespace="org.givenness.backend.infrastructure.mapper.DonationPostMapper">
 
-    <insert id="insertPost" parameterType="org.givenness.backend.model.post.DonationPost">
+    <insert id="insertPost" parameterType="DonationPost">
         INSERT INTO
         DONATION_POST(
             SERIAL_NUM,
@@ -29,20 +29,20 @@
             #{storyContents})
     </insert>
 
-    <select id="selectAllPost" resultType="org.givenness.backend.model.post.DonationPost">
+    <select id="selectPostList" parameterType="Pageable" resultType="DonationPost">
         SELECT
         *
         FROM DONATION_POST
     </select>
 
-    <select id="selectPost" parameterType="int" resultType="org.givenness.backend.model.post.DonationPost">
+    <select id="selectOnePost" parameterType="int" resultType="DonationPost">
         SELECT
         *
         FROM DONATION_POST
         WHERE serial_num = #{serialNum}
     </select>
 
-    <update id="updatePost" parameterType="org.givenness.backend.model.post.DonationPost">
+    <update id="updatePost" parameterType="DonationPost">
         UPDATE DONATION_POST
           SET
               <if test="title != null">

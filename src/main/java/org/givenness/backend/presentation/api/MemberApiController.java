@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.givenness.backend.model.member.MemberAccount;
-import org.givenness.backend.model.member.TheMarginalizedAdminMember;
-import org.givenness.backend.model.member.VolunteerMember;
+import org.givenness.backend.model.member.TheMarginalizedAdminMemberInfo;
+import org.givenness.backend.model.member.VolunteerMemberInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,10 +49,10 @@ public class MemberApiController {
       value = "/{memberId}",
       params = {"mType=vol"}
   )
-  public ResponseEntity<VolunteerMember> getVolunteerMemberInfo(
+  public ResponseEntity<VolunteerMemberInfo> getVolunteerMemberInfo(
       @PathVariable("memberId") String memberId) {
 
-    return new ResponseEntity(new VolunteerMember(), HttpStatus.OK);
+    return new ResponseEntity(new VolunteerMemberInfo(), HttpStatus.OK);
   }
 
   @ApiOperation(value = "회원정보 조회", produces = "application/json")
@@ -79,10 +79,10 @@ public class MemberApiController {
       value = "/{memberId}",
       params = {"mType=admin"}
   )
-  public ResponseEntity<TheMarginalizedAdminMember> getMAdminMemberInfo(
+  public ResponseEntity<TheMarginalizedAdminMemberInfo> getMAdminMemberInfo(
       @PathVariable("memberId") String memberId) {
 
-    return new ResponseEntity(new TheMarginalizedAdminMember(), HttpStatus.OK);
+    return new ResponseEntity(new TheMarginalizedAdminMemberInfo(), HttpStatus.OK);
   }
   /* ------------- 조회 API  End----------------------- */
 
@@ -139,7 +139,7 @@ public class MemberApiController {
           defaultValue = "memberAccount"
       )
       @RequestBody
-          VolunteerMember volunteerMember) {
+          VolunteerMemberInfo volunteerMemberInfo) {
 
     return new ResponseEntity(HttpStatus.OK);
   }
@@ -167,7 +167,7 @@ public class MemberApiController {
           defaultValue = "memberAccount"
       )
       @RequestBody
-          TheMarginalizedAdminMember theMarginalizedAdminMember) {
+          TheMarginalizedAdminMemberInfo theMarginalizedAdminMemberInfo) {
 
     return new ResponseEntity(HttpStatus.OK);
   }
@@ -193,7 +193,7 @@ public class MemberApiController {
           defaultValue = "volunteerMember"
       )
       @RequestBody
-          VolunteerMember volunteerMember) {
+          VolunteerMemberInfo volunteerMemberInfo) {
 
     return new ResponseEntity(HttpStatus.CREATED);
   }
@@ -217,7 +217,7 @@ public class MemberApiController {
           defaultValue = "theMarginalizedAdminMember"
       )
       @RequestBody
-          TheMarginalizedAdminMember theMarginalizedAdminMember) {
+          TheMarginalizedAdminMemberInfo theMarginalizedAdminMemberInfo) {
 
     return new ResponseEntity(HttpStatus.CREATED);
   }

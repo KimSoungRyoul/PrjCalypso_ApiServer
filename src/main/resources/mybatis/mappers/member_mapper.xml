@@ -5,7 +5,7 @@
 
 <mapper namespace="org.givenness.backend.infrastructure.mapper.MemberMapper">
 
-  <resultMap autoMapping="true" id="memberAccount2" type="MemberAccount">
+  <resultMap autoMapping="true" id="memberAccountMap" type="MemberAccount">
     <id column="serial_num" property="serialNum"/>
     <collection autoMapping="true" ofType="MemberAuthority" property="grantedAuthList">
       <id column="auth_serial_num" property="serialNum"/>
@@ -14,7 +14,7 @@
   </resultMap>
 
 
-  <select id="selectMember" resultMap="memberAccount2">
+  <select id="selectMember" resultMap="memberAccountMap">
       SELECT m.serial_num as serial_num,
         m.member_id,
         m.`password`,

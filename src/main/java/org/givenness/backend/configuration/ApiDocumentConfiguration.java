@@ -48,8 +48,8 @@ public class ApiDocumentConfiguration {
         .licenseUrl(licenseUrl)
         .title(title)
         .description(description)
-        .version("version1.0")
-        .termsOfServiceUrl("2018-05-24")
+        .version("Beta 1.0")
+        .termsOfServiceUrl("2018-07-04")
 
         .build();
 

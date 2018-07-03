@@ -1,10 +1,10 @@
 package org.givenness.backend.infrastructure.mapper;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.givenness.backend.model.dto.Pageable;
 import org.givenness.backend.model.post.DonationPost;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Mapper
 @Repository
@@ -14,10 +14,10 @@ public interface DonationPostMapper {
     void insertPost(DonationPost post);
 
     //게시글 전체 조회
-    List<DonationPost> selectAllPost();
+    List<DonationPost> selectPostList(Pageable pageable);
 
     //게시글 선택 조회
-    void selectPost(long serialNum);
+    DonationPost selectOnePost(long serialNum);
 
     //게시글 수정
     void updatePost(DonationPost post);

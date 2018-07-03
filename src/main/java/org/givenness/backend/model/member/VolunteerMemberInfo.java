@@ -8,9 +8,9 @@ import org.givenness.backend.model.member.valueobj.VolunteerType;
 
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @ApiModel(value = "volunteerMember", description = "자원봉사자 계정 ")
-public class VolunteerMember extends MemberAccount {
+public class VolunteerMemberInfo {
 
   protected String name;
 

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MemberMapper {
 
-  MemberAccount selectMember(long serialNum);
+  MemberAccount selectMember(String memberId);
+
+  //VolunteerMemberInfo selectVolunteerMemberOne();
+
 
 }

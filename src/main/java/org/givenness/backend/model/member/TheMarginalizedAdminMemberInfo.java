@@ -2,14 +2,16 @@ package org.givenness.backend.model.member;
 
 
 import io.swagger.annotations.ApiModel;
+import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.givenness.backend.model.volunteerlog.TheMarginalized;
 
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @ApiModel(value = "theMarginalizedAdminMember", description = "소외계층 관리자 계정")
-public class TheMarginalizedAdminMember extends MemberAccount {
+public class TheMarginalizedAdminMemberInfo {
 
 
   protected String adminDepartmentName;
@@ -20,7 +22,7 @@ public class TheMarginalizedAdminMember extends MemberAccount {
 
   protected String phoneNum;
 
-  //protected Set<TheMarginalized> theMarginalizedSet;
+  protected Set<TheMarginalized> theMarginalizedSet;
 
 
 }

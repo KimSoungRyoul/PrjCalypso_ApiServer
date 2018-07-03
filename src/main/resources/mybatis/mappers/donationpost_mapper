@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.givenness.backend.infrastructure.mapper.DonationPostMapper">
+
+    <insert id="insertPost" parameterType="org.givenness.backend.model.post.DonationPost">
+        INSERT INTO
+        DONATION_POST(
+            SERIAL_NUM,
+            REG_DATE,
+            POST_OWNER,
+            VOLUNTEER_START_DATE,
+            VOLUNTEER_END_DATE,
+            ADDRESS,
+            DONATION_DEADLINE_DATE,
+            TITLE,
+            STORY_CONTENTS)
+        VALUES(
+            #{serialNum},
+            #{regDate},
+            #{postOwner},
+            #{volunteerStartDate},
+            #{volunteerEndDate},
+            #{address},
+            #{donatingDeadlineDate},
+            #{title},
+            #{storyContents})
+    </insert>
+
+    <select id="selectAllPost" resultType="org.givenness.backend.model.post.DonationPost">
+        SELECT
+        *
+        FROM DONATION_POST
+    </select>
+
+    <select id="selectPost" parameterType="int" resultType="org.givenness.backend.model.post.DonationPost">
+        SELECT
+        *
+        FROM DONATION_POST
+        WHERE serial_num = #{serialNum}
+    </select>
+
+    <update id="updatePost" parameterType="org.givenness.backend.model.post.DonationPost">
+        UPDATE DONATION_POST
+          SET
+              <if test="title != null">
+                  TITLE = #{title}
+              </if>
+          WHERE serial_num = #{serialNum}
+    </update>
+
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM DONATION_POST
+        WHERE serial_num = #{serialNum}
+    </delete>
+
+    <!--
+    <select id="countPost" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM DONATION_POST
+    </select>
+    -->
+</mapper>

@@ -55,7 +55,7 @@ public class MemberMapperTest {
   @Test
   public void selectVolunteerInfo() {
 
-    VolunteerMemberInfo volunteerMemberInfo = memberMapper.selectVolunteerInfo("sdf");
+    VolunteerMemberInfo volunteerMemberInfo = memberMapper.selectPersonalVolunteerInfo("sdf");
 
     log.info(volunteerMemberInfo.toString());
 

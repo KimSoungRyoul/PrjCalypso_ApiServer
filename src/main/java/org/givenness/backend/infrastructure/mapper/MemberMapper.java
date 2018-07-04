@@ -13,7 +13,9 @@ public interface MemberMapper {
 
   MemberAccount selectMember(String memberId);
 
-  VolunteerMemberInfo selectVolunteerInfo(String memberId);
+  VolunteerMemberInfo selectPersonalVolunteerInfo(String memberId);
+
+  VolunteerMemberInfo selectCompanyVolunteerInfo(String memberId);
 
   TheMarginalizedAdminMemberInfo selectMAdminInfo(String memberId);
 

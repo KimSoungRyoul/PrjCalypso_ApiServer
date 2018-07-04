@@ -9,8 +9,5 @@
         <module name="calypso_apiserver" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="calypso_apiserver" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

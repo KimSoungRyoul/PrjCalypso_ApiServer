@@ -14,6 +14,19 @@
   </resultMap>
 
 
+  <resultMap autoMapping="true" id="volunteerInfoMap" type="VolunteerMemberInfo">
+    <id column="serial_num" property="serialNum"/>
+    <association autoMapping="true" javaType="ProfileImage" property="profileImage">
+      <id column="fi_serial_num" property="serialNum"/>
+    </association>
+  </resultMap>
+
+  <resultMap autoMapping="true" id="mAdminMap" type="TheMarginalizedAdminMemberInfo">
+
+
+  </resultMap>
+
+
   <select id="selectMember" resultMap="memberAccountMap">
       SELECT m.serial_num as serial_num,
         m.member_id,
@@ -21,7 +34,6 @@
         m.password_hint,
         m.password_hint_answer,
         m.reg_date,
-        m.image_serial_num,
         ma.serial_num as auth_serial_num,
         ma.authority_type,
         ma.granted_date
@@ -30,6 +42,36 @@
             on m.serial_num=ma.auth_owner_id
             where m.member_id=#{memberId}
   </select>
+
+  <select id="selectVolunteerInfo" resultMap="volunteerInfoMap">
+    select
+      m.member_id,
+
+
+      vm.`name`,
+      vm.email,
+      vm.address,
+      vm.personal_or_organization,
+      vm.phone_num,
+
+      fi.serial_num as fi_serial_num,
+      fi.file_path,
+      fi.file_type,
+      fi.file_size
+    from volunteer_member vm
+      left join member_account m
+        on vm.serial_num = m.serial_num
+      left join file_info fi
+        on m.image_serial_num = fi.serial_num
+
+    where m.member_id = #{memberId}
+  </select>
+
+  <select id="selectMAdminInfo" resultMap="mAdminMap">
+
+
+  </select>
+
 
 </mapper>
 

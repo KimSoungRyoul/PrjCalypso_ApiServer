@@ -8,6 +8,7 @@ import org.apache.ibatis.type.EnumTypeHandler;
 import org.apache.ibatis.type.TypeHandler;
 import org.givenness.backend.model.member.valueobj.AuthorityType;
 import org.givenness.backend.model.member.valueobj.FileType;
+import org.givenness.backend.model.member.valueobj.VolunteerType;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
@@ -36,7 +37,9 @@ public abstract class MyBatisConfig {
     sessionFactoryBean.setMapperLocations(pathResolver.getResources(MAPPER_LOCATIONS_PATH));
     sessionFactoryBean.setTypeHandlers(new TypeHandler[]{new DateTypeHandler(),
         new EnumTypeHandler(FileType.class),
-        new EnumTypeHandler(AuthorityType.class)});
+        new EnumTypeHandler(AuthorityType.class),
+        new EnumTypeHandler(VolunteerType.class)
+    });
     sessionFactoryBean.setVfs(SpringBootVFS.class);
 
   }

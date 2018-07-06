@@ -5,7 +5,15 @@
 
 <mapper namespace="org.givenness.backend.infrastructure.mapper.DonationPostMapper">
 
-    <insert id="insertPost" parameterType="DonationPost">
+
+  <resultMap autoMapping="true" id="donationPostMap" type="DonationPost">
+    <collection ofType="FileInfo" property="attachments">
+      <id column="f_serial_num" property="serialNum"/>
+    </collection>
+  </resultMap>
+
+
+  <insert id="insertPost" parameterType="DonationPost">
         INSERT INTO
         DONATION_POST(
             SERIAL_NUM,
@@ -29,20 +37,37 @@
             #{storyContents})
     </insert>
 
-    <select id="selectPostList" parameterType="Pageable" resultType="DonationPost">
+
+  <select id="selectPostList" parameterType="Pageable" resultType="DonationPost">
         SELECT
         *
         FROM DONATION_POST
     </select>
 
-    <select id="selectOnePost" parameterType="int" resultType="DonationPost">
-        SELECT
-        *
-        FROM DONATION_POST
-        WHERE serial_num = #{serialNum}
+
+  <select id="selectOnePost" parameterType="long" resultMap="donationPostMap">
+    select
+      DP.serial_num,
+      DP.title,
+      DP.story_contents,
+      DP.address,
+      DP.volunteer_start_date,
+      DP.volunteer_end_date,
+      DP.reg_date,
+      DP.donating_deadline_date,
+      f.serial_num as f_serial_num,
+      f.file_type,
+      f.file_size,
+      f.file_purpose
+
+    from donation_post DP
+      left join file_info f
+        on DP.serial_num = f.post_serial_num
+    where DP.serial_num = #{serialNum}
     </select>
 
-    <update id="updatePost" parameterType="DonationPost">
+
+  <update id="updatePost" parameterType="DonationPost">
         UPDATE DONATION_POST
           SET
               <if test="title != null">

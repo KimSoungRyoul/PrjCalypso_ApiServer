@@ -10,7 +10,6 @@
     <collection autoMapping="true" ofType="MemberAuthority" property="grantedAuthList">
       <id column="auth_serial_num" property="serialNum"/>
     </collection>
-
   </resultMap>
 
 
@@ -20,6 +19,7 @@
       <id column="fi_serial_num" property="serialNum"/>
     </association>
   </resultMap>
+
 
   <resultMap autoMapping="true" id="companyVolunteerInfoMap" type="VolunteerMemberInfo">
     <id column="serial_num" property="serialNum"/>
@@ -32,7 +32,10 @@
 
 
   <resultMap autoMapping="true" id="mAdminMap" type="TheMarginalizedAdminMemberInfo">
-
+    <id column="serial_num" property="serialNum"/>
+    <collection autoMapping="true" ofType="TheMarginalized" property="theMarginalizedSet">
+      <id column="tm_serial_num" property="serialNum"/>
+    </collection>
 
   </resultMap>
 
@@ -102,7 +105,7 @@
     where m.member_id = #{memberId}
   </select>
 
-
+  <!-- 지연 로딩 을 위한 조회 -->
   <select id="selectEmployees" resultType="OrganizationEmployee">
     select
       serial_num,
@@ -117,10 +120,29 @@
 
 
   <select id="selectMAdminInfo" resultMap="mAdminMap">
-    select *
-    from the_marginalized_admin_member
+    select
+      M.member_id,
+
+      MA.serial_num,
+      MA.admin_department_name,
+      MA.address,
+      MA.email,
+      MA.phone_num,
+
+      TM.marginalized_type,
+      TM.name,
+      TM.reg_date,
+      TM.serial_num as tm_serial_num
 
 
+    from the_marginalized_admin_member MA
+      left join member_account M
+        on MA.serial_num = M.serial_num
+
+      left join the_marginalized TM
+        on TM.manager_admin_id = MA.serial_num
+
+    where M.member_id = #{memberId}
   </select>
 
 

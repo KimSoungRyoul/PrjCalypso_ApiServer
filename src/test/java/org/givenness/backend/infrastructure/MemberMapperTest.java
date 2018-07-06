@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import lombok.extern.log4j.Log4j;
 import org.givenness.backend.infrastructure.mapper.MemberMapper;
 import org.givenness.backend.model.member.MemberAccount;
+import org.givenness.backend.model.member.TheMarginalizedAdminMemberInfo;
 import org.givenness.backend.model.member.VolunteerMemberInfo;
 import org.junit.After;
 import org.junit.Before;
@@ -24,13 +25,15 @@ public class MemberMapperTest extends DefaultAbstractTest {
 
   @Before
   public void init() {
-    log.info("---MemberMapperTest Start--- \n\n");
+
+    log.info("---MemberMapperTest 단위테스트 시작--- \n\n");
+
   }
 
   @After
   public void finish() {
 
-    log.info("---MemberMapperTest END--- \n\n");
+    log.info("---MemberMapperTest 단위테스트 종료--- \n\n");
 
   }
 
@@ -38,10 +41,13 @@ public class MemberMapperTest extends DefaultAbstractTest {
   public void selectMember() {
 
     MemberAccount memberAccount = memberMapper.selectMember("sdf");
+    MemberAccount memberAccount2 = memberMapper.selectMember("qwer");
 
     log.info(memberAccount.toString());
+    log.info(memberAccount2.toString());
 
     assertNotNull(memberAccount);
+    assertNotNull(memberAccount2);
 
   }
 
@@ -55,5 +61,28 @@ public class MemberMapperTest extends DefaultAbstractTest {
     assertNotNull(volunteerMemberInfo);
 
   }
+
+  @Test
+  public void selectCompanyVolunteerInfo() {
+
+    VolunteerMemberInfo volunteerMemberInfo = memberMapper.selectCompanyVolunteerInfo("sdf");
+
+    log.info(volunteerMemberInfo.toString());
+
+    assertNotNull(volunteerMemberInfo.getEmpList());
+
+  }
+
+  @Test
+  public void selectMAdminInfo() {
+
+    TheMarginalizedAdminMemberInfo mAdminInfo = memberMapper.selectMAdminInfo("qwer");
+
+    log.info(mAdminInfo.toString());
+
+    assertNotNull(mAdminInfo);
+
+  }
+
 
 }

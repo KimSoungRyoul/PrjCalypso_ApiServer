@@ -13,6 +13,10 @@ import org.givenness.backend.model.volunteerlog.TheMarginalized;
 @ApiModel(value = "theMarginalizedAdminMember", description = "소외계층 관리자 계정")
 public class TheMarginalizedAdminMemberInfo {
 
+  protected long serialNum;
+
+  protected String memberId;
+
 
   protected String adminDepartmentName;
 

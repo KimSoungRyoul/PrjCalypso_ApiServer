@@ -12,11 +12,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 
 
 @Log4j
-@ActiveProfiles("dev")
 public class MemberMapperTest extends DefaultAbstractTest {
 
   @Autowired
@@ -38,23 +36,29 @@ public class MemberMapperTest extends DefaultAbstractTest {
   }
 
   @Test
-  public void selectMember() {
-
-    MemberAccount memberAccount = memberMapper.selectMember("sdf");
-    MemberAccount memberAccount2 = memberMapper.selectMember("qwer");
-
-    log.info(memberAccount.toString());
-    log.info(memberAccount2.toString());
-
-    assertNotNull(memberAccount);
-    assertNotNull(memberAccount2);
+  public void asdf() {
 
   }
 
-  @Test
+  //@Test
+  public void selectMember() {
+
+    MemberAccount memberAccount = memberMapper.selectMember("sky5367@gmail.com");
+    //MemberAccount memberAccount2 = memberMapper.selectMember("qwer");
+
+    log.info(memberAccount.toString());
+    //log.info(memberAccount2.toString());
+
+    assertNotNull(memberAccount);
+    //assertNotNull(memberAccount2);
+
+  }
+
+  //@Test
   public void selectVolunteerInfo() {
 
-    VolunteerMemberInfo volunteerMemberInfo = memberMapper.selectPersonalVolunteerInfo("sdf");
+    VolunteerMemberInfo volunteerMemberInfo = memberMapper
+        .selectPersonalVolunteerInfo("sky5367@gmail.com");
 
     log.info(volunteerMemberInfo.toString());
 
@@ -62,10 +66,11 @@ public class MemberMapperTest extends DefaultAbstractTest {
 
   }
 
-  @Test
+  //@Test
   public void selectCompanyVolunteerInfo() {
 
-    VolunteerMemberInfo volunteerMemberInfo = memberMapper.selectCompanyVolunteerInfo("sdf");
+    VolunteerMemberInfo volunteerMemberInfo = memberMapper
+        .selectCompanyVolunteerInfo("sky5367@gmail.com");
 
     log.info(volunteerMemberInfo.toString());
 
@@ -73,10 +78,10 @@ public class MemberMapperTest extends DefaultAbstractTest {
 
   }
 
-  @Test
+  //@Test
   public void selectMAdminInfo() {
 
-    TheMarginalizedAdminMemberInfo mAdminInfo = memberMapper.selectMAdminInfo("qwer");
+    TheMarginalizedAdminMemberInfo mAdminInfo = memberMapper.selectMAdminInfo("sky5367@gmail.com");
 
     log.info(mAdminInfo.toString());
 

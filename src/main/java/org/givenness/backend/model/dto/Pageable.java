@@ -1,13 +1,12 @@
 package org.givenness.backend.model.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
 public class Pageable {
 
   private static final int SIZE = 10;
 
-  @Setter
+
   private int pageNum;
 
   @Getter
@@ -16,19 +15,20 @@ public class Pageable {
   private int endLimitNum;
 
   @Getter
-  private String sortBy;
+  private String searchKeyword;
 
   public Pageable(int pageNum) {
     this.pageNum = pageNum;
-    this.sortBy = "serial_num";
+
 
     startLimitNum = SIZE * (pageNum - 1);
     endLimitNum = SIZE * (pageNum);
   }
 
-  public Pageable(int pageNum, String sortBy) {
+
+  public Pageable(int pageNum, String searchKeyword) {
     this.pageNum = pageNum;
-    this.sortBy = sortBy;
+    this.searchKeyword = searchKeyword;
 
     startLimitNum = SIZE * (pageNum - 1);
     endLimitNum = SIZE * (pageNum);

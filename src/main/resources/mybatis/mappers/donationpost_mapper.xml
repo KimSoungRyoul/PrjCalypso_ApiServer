@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.givenness.backend.infrastructure.mapper.DonationPostMapper">
 
@@ -14,35 +14,51 @@
 
 
   <insert id="insertPost" parameterType="DonationPost">
-        INSERT INTO
-        DONATION_POST(
-            SERIAL_NUM,
-            REG_DATE,
-            POST_OWNER,
-            VOLUNTEER_START_DATE,
-            VOLUNTEER_END_DATE,
-            ADDRESS,
-            DONATION_DEADLINE_DATE,
-            TITLE,
-            STORY_CONTENTS)
-        VALUES(
-            #{serialNum},
-            #{regDate},
-            #{postOwner},
-            #{volunteerStartDate},
-            #{volunteerEndDate},
-            #{address},
-            #{donatingDeadlineDate},
-            #{title},
-            #{storyContents})
-    </insert>
+    INSERT INTO
+      DONATION_POST (
+        SERIAL_NUM,
+        REG_DATE,
+        POST_OWNER,
+        VOLUNTEER_START_DATE,
+        VOLUNTEER_END_DATE,
+        ADDRESS,
+        DONATION_DEADLINE_DATE,
+        TITLE,
+        STORY_CONTENTS)
+    VALUES (
+      #{serialNum},
+      #{regDate},
+      #{postOwner},
+      #{volunteerStartDate},
+      #{volunteerEndDate},
+      #{address},
+      #{donatingDeadlineDate},
+      #{title},
+      #{storyContents})
+  </insert>
 
 
   <select id="selectPostList" parameterType="Pageable" resultType="DonationPost">
-        SELECT
-        *
-        FROM DONATION_POST
-    </select>
+    select
+
+    serial_num,
+    title,
+    story_contents,
+    post_owner_name,
+    view_cnt
+
+    from donation_post
+
+
+    <where>
+      <if test="searchKeyword != null">
+        title LIKE concat('%',#{searchKeyword},'%')
+      </if>
+    </where>
+
+    limit #{startLimitNum},#{endLimitNum}
+
+  </select>
 
 
   <select id="selectOnePost" parameterType="long" resultMap="donationPostMap">
@@ -64,28 +80,28 @@
       left join file_info f
         on DP.serial_num = f.post_serial_num
     where DP.serial_num = #{serialNum}
-    </select>
+  </select>
 
 
   <update id="updatePost" parameterType="DonationPost">
-        UPDATE DONATION_POST
-          SET
-              <if test="title != null">
-                  TITLE = #{title}
-              </if>
-          WHERE serial_num = #{serialNum}
-    </update>
+    UPDATE DONATION_POST
+    SET
+    <if test="title != null">
+      TITLE = #{title}
+    </if>
+    WHERE serial_num = #{serialNum}
+  </update>
 
-    <delete id="deletePost" parameterType="int">
-        DELETE FROM DONATION_POST
-        WHERE serial_num = #{serialNum}
-    </delete>
+  <delete id="deletePost" parameterType="int">
+    DELETE FROM DONATION_POST
+    WHERE serial_num = #{serialNum}
+  </delete>
 
-    <!--
-    <select id="countPost" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM DONATION_POST
-    </select>
-    -->
+  <!--
+  <select id="countPost" resultType="int">
+      SELECT
+          COUNT(*)
+      FROM DONATION_POST
+  </select>
+  -->
 </mapper>

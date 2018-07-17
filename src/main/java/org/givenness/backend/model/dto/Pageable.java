@@ -6,7 +6,7 @@ public class Pageable {
 
   private static final int SIZE = 10;
 
-
+  @Getter
   private int pageNum;
 
   @Getter

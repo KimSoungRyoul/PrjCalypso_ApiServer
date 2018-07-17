@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sub">
+
+  <select id="lazySelectFileInfo" resultType="FileInfo">
+    select
+      f.serial_num as serial_num,
+      f.file_type,
+      f.file_size,
+      f.file_purpose
+    from file_info f
+    where f.post_serial_num = #{postSerialNum}
+  </select>
+
+</mapper>

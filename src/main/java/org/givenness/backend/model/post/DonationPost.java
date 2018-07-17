@@ -18,7 +18,7 @@ public class DonationPost {
   private Date regDate;
 
   //게시물 등록자
-  private String postOwner;
+  private String postOwnerName;
 
 
   @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")

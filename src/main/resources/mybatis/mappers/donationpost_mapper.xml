@@ -7,28 +7,27 @@
 
 
   <resultMap autoMapping="true" id="donationPostMap" type="DonationPost">
-    <collection ofType="FileInfo" property="attachments">
-      <id column="f_serial_num" property="serialNum"/>
-    </collection>
+
+    <collection column="{postSerialNum=serial_num}" ofType="FileInfo" property="attachments"
+      select="sub.lazySelectFileInfo"/>
+
   </resultMap>
 
 
-  <insert id="insertPost" parameterType="DonationPost">
+  <insert id="insertPost" keyProperty="serialNum" parameterType="DonationPost">
     INSERT INTO
-      DONATION_POST (
-        SERIAL_NUM,
+      donation_post (
         REG_DATE,
-        POST_OWNER,
+        POST_OWNER_NAME,
         VOLUNTEER_START_DATE,
         VOLUNTEER_END_DATE,
         ADDRESS,
-        DONATION_DEADLINE_DATE,
+        DONATING_DEADLINE_DATE,
         TITLE,
         STORY_CONTENTS)
     VALUES (
-      #{serialNum},
       #{regDate},
-      #{postOwner},
+      #{postOwnerName},
       #{volunteerStartDate},
       #{volunteerEndDate},
       #{address},
@@ -70,16 +69,22 @@
       DP.volunteer_start_date,
       DP.volunteer_end_date,
       DP.reg_date,
-      DP.donating_deadline_date,
-      f.serial_num as f_serial_num,
+      DP.donating_deadline_date
+
+
+    from donation_post DP
+
+    where DP.serial_num = #{serialNum}
+  </select>
+
+  <select id="lazySelectFileInfo" resultType="FileInfo">
+    select
+      f.serial_num as serial_num,
       f.file_type,
       f.file_size,
       f.file_purpose
-
-    from donation_post DP
-      left join file_info f
-        on DP.serial_num = f.post_serial_num
-    where DP.serial_num = #{serialNum}
+    from file_info f
+    where f.post_serial_num = #{postSerialNum}
   </select>
 
 

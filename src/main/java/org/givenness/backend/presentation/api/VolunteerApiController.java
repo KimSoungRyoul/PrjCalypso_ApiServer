@@ -2,7 +2,7 @@ package org.givenness.backend.presentation.api;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.givenness.backend.model.volunteerlog.VolunteerLog;
+import org.givenness.backend.model.volunteerhistory.VolunteerHistory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class VolunteerApiController {
 
   @ApiOperation(value = "자원 봉사 기록 조회")
-  @GetMapping("/logs/{memberId}")
+  @GetMapping("/history/{memberId}")
   public String getVolunteerLog(@PathVariable String memberId) {
 
     return null;
@@ -26,8 +26,8 @@ public class VolunteerApiController {
   }
 
   @ApiOperation(value = "자원봉사 기록 등록", produces = "application/json")
-  @PostMapping("/logs")
-  public ResponseEntity postLog(@RequestBody VolunteerLog volunteerLog) {
+  @PostMapping("/history")
+  public ResponseEntity postLog(@RequestBody VolunteerHistory volunteerLog) {
 
     return new ResponseEntity(HttpStatus.CREATED);
   }

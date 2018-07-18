@@ -1,23 +1,32 @@
 
 server:
   context-path: /api
-
+  port: 8080
 ---
 
 spring:
   profiles: dev
 
   datasource:
-    url: jdbc:log4jdbc:mysql://localhost:3306/calypso_local_db?useSSL=false&characterEncoding=utf8
-    username: root
-    password: 1234
+    url: jdbc:log4jdbc:mysql://211.254.212.50:3306/calypso_dev_schema?useSSL=false&characterEncoding=utf8
+    username: was_dev_son
+    password: Son_password
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 
 
 ---
 
+
+
 spring:
   profiles: product
+
+
+  datasource:
+    url: jdbc:mysql://211.254.212.50:3306/calypso_schema?useSSL=false&characterEncoding=utf8
+    username: was_dev_son
+    password: Son_password
+    driver-class-name: com.mysql.jdbc.Driver
 
 
 
@@ -26,3 +35,13 @@ spring:
 ---
 spring:
   profiles: test
+
+
+  datasource:
+    url: jdbc:log4jdbc:mysql://211.254.212.50:3306/calypso_test_schema?useSSL=false&characterEncoding=utf8
+    username: was_dev_son
+    password: Son_password
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    sql-script-encoding: utf-8
+
+

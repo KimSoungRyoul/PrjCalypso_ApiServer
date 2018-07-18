@@ -10,26 +10,141 @@
     <collection autoMapping="true" ofType="MemberAuthority" property="grantedAuthList">
       <id column="auth_serial_num" property="serialNum"/>
     </collection>
+  </resultMap>
+
+
+  <resultMap autoMapping="true" id="personalVolunteerInfoMap" type="VolunteerMemberInfo">
+    <id column="serial_num" property="serialNum"/>
+    <association autoMapping="true" javaType="ProfileImage" property="profileImage">
+      <id column="fi_serial_num" property="serialNum"/>
+    </association>
+  </resultMap>
+
+
+  <resultMap autoMapping="true" id="companyVolunteerInfoMap" type="VolunteerMemberInfo">
+    <id column="serial_num" property="serialNum"/>
+    <association autoMapping="true" javaType="ProfileImage" property="profileImage">
+      <id column="fi_serial_num" property="serialNum"/>
+    </association>
+    <collection column="{organSerialNum=serial_num}" fetchType="lazy" ofType="OrganizationEmployee"
+      property="empList" select="selectEmployees"/>
+  </resultMap>
+
+
+  <resultMap autoMapping="true" id="mAdminMap" type="TheMarginalizedAdminMemberInfo">
+    <id column="serial_num" property="serialNum"/>
+    <collection autoMapping="true" ofType="TheMarginalized" property="theMarginalizedSet">
+      <id column="tm_serial_num" property="serialNum"/>
+    </collection>
 
   </resultMap>
 
 
   <select id="selectMember" resultMap="memberAccountMap">
-      SELECT m.serial_num as serial_num,
-        m.member_id,
-        m.`password`,
-        m.password_hint,
-        m.password_hint_answer,
-        m.reg_date,
-        m.image_serial_num,
-        ma.serial_num as auth_serial_num,
-        ma.authority_type,
-        ma.granted_date
-          FROM member_account m
-            left join  member_authority ma
-            on m.serial_num=ma.auth_owner_id
-            where m.member_id=#{memberId}
+    SELECT
+      m.serial_num  as serial_num,
+      m.member_id,
+      m.`password`,
+      m.password_hint,
+      m.password_hint_answer,
+      m.reg_date,
+      ma.serial_num as auth_serial_num,
+      ma.authority_type,
+      ma.granted_date
+    FROM member_account m
+      left join member_authority ma
+        on m.serial_num = ma.auth_owner_id
+    where m.member_id = #{memberId}
   </select>
+
+  <select id="selectPersonalVolunteerInfo" resultMap="personalVolunteerInfoMap">
+    select
+      m.member_id,
+
+      vm.serial_num,
+      vm.`name`,
+      vm.email,
+      vm.address,
+      vm.personal_or_organization,
+      vm.phone_num,
+
+      fi.serial_num as fi_serial_num,
+      fi.file_path,
+      fi.file_type,
+      fi.file_size
+    from volunteer_member vm
+      left join member_account m
+        on vm.serial_num = m.serial_num
+      left join file_info fi
+        on m.image_serial_num = fi.serial_num
+
+    where m.member_id = #{memberId}
+  </select>
+
+  <select id="selectCompanyVolunteerInfo" resultMap="companyVolunteerInfoMap">
+    select
+      m.member_id,
+
+      vm.serial_num,
+      vm.`name`,
+      vm.email,
+      vm.address,
+      vm.personal_or_organization,
+      vm.phone_num,
+
+      fi.serial_num as fi_serial_num,
+      fi.file_path,
+      fi.file_type,
+      fi.file_size
+    from volunteer_member vm
+      left join member_account m
+        on vm.serial_num = m.serial_num
+      left join file_info fi
+        on m.image_serial_num = fi.serial_num
+
+    where m.member_id = #{memberId}
+  </select>
+
+  <!-- 지연 로딩 을 위한 조회 -->
+  <select id="selectEmployees" resultType="OrganizationEmployee">
+    select
+      serial_num,
+      department,
+      `name`,
+      reg_date
+    from organization_employee
+    where joined_organization = #{organSerialNum}
+
+
+  </select>
+
+
+  <select id="selectMAdminInfo" resultMap="mAdminMap">
+    select
+      M.member_id,
+
+      MA.serial_num,
+      MA.admin_department_name,
+      MA.address,
+      MA.email,
+      MA.phone_num,
+
+      TM.marginalized_type,
+      TM.name,
+      TM.reg_date,
+      TM.serial_num as tm_serial_num
+
+
+    from the_marginalized_admin_member MA
+      left join member_account M
+        on MA.serial_num = M.serial_num
+
+      left join the_marginalized TM
+        on TM.manager_admin_id = MA.serial_num
+
+    where M.member_id = #{memberId}
+  </select>
+
 
 </mapper>
 

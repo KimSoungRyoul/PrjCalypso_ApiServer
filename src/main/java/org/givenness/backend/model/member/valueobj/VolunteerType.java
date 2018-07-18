@@ -1,8 +1,33 @@
 package org.givenness.backend.model.member.valueobj;
 
-public enum VolunteerType {
+import lombok.Getter;
+import lombok.Setter;
 
-  PERSONAL,
-  COMPANY
+public enum VolunteerType {
+  PERSONAL(0),
+  COMPANY(1);
+
+
+  @Getter
+  @Setter
+  private final int pOrC;
+
+  VolunteerType(int pOrC) {
+    this.pOrC = pOrC;
+
+
+  }
+
+
+  public static VolunteerType valueOf(int value) {
+    switch (value) {
+      case 1:
+        return VolunteerType.PERSONAL;
+      case 2:
+        return VolunteerType.COMPANY;
+      default:
+        throw new AssertionError("Unknown VolunteerType!!: " + value);
+    }
+  }
 
 }

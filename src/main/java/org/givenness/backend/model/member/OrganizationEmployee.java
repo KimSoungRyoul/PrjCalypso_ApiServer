@@ -9,8 +9,7 @@ import lombok.Data;
 @Data
 public class OrganizationEmployee {
 
-
-  public VolunteerMemberInfo joinedOrganization;
+  //public VolunteerMemberInfo joinedOrganization;
 
   private long serialNum;
 

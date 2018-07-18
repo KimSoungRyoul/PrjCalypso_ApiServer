@@ -1,66 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.givenness.backend.infrastructure.mapper.DonationPostMapper">
 
-    <insert id="insertPost" parameterType="DonationPost">
-        INSERT INTO
-        DONATION_POST(
-            SERIAL_NUM,
-            REG_DATE,
-            POST_OWNER,
-            VOLUNTEER_START_DATE,
-            VOLUNTEER_END_DATE,
-            ADDRESS,
-            DONATION_DEADLINE_DATE,
-            TITLE,
-            STORY_CONTENTS)
-        VALUES(
-            #{serialNum},
-            #{regDate},
-            #{postOwner},
-            #{volunteerStartDate},
-            #{volunteerEndDate},
-            #{address},
-            #{donatingDeadlineDate},
-            #{title},
-            #{storyContents})
-    </insert>
 
-    <select id="selectPostList" parameterType="Pageable" resultType="DonationPost">
-        SELECT
-        *
-        FROM DONATION_POST
-    </select>
+  <resultMap autoMapping="true" id="donationPostMap" type="DonationPost">
 
-    <select id="selectOnePost" parameterType="int" resultType="DonationPost">
-        SELECT
-        *
-        FROM DONATION_POST
-        WHERE serial_num = #{serialNum}
-    </select>
+    <collection column="{postSerialNum=serial_num}" ofType="FileInfo" property="attachments"
+      select="sub.lazySelectFileInfo"/>
 
-    <update id="updatePost" parameterType="DonationPost">
-        UPDATE DONATION_POST
-          SET
-              <if test="title != null">
-                  TITLE = #{title}
-              </if>
-          WHERE serial_num = #{serialNum}
-    </update>
+  </resultMap>
 
-    <delete id="deletePost" parameterType="int">
-        DELETE FROM DONATION_POST
-        WHERE serial_num = #{serialNum}
-    </delete>
 
-    <!--
-    <select id="countPost" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM DONATION_POST
-    </select>
-    -->
+  <insert id="insertPost" keyProperty="serialNum" parameterType="DonationPost">
+    INSERT INTO
+      donation_post (
+        REG_DATE,
+        POST_OWNER_NAME,
+        VOLUNTEER_START_DATE,
+        VOLUNTEER_END_DATE,
+        ADDRESS,
+        DONATING_DEADLINE_DATE,
+        TITLE,
+        STORY_CONTENTS)
+    VALUES (
+      #{regDate},
+      #{postOwnerName},
+      #{volunteerStartDate},
+      #{volunteerEndDate},
+      #{address},
+      #{donatingDeadlineDate},
+      #{title},
+      #{storyContents})
+  </insert>
+
+
+  <select id="selectPostList" parameterType="Pageable" resultType="DonationPost">
+    select
+
+    serial_num,
+    title,
+    story_contents,
+    post_owner_name,
+    view_cnt
+
+    from donation_post
+
+
+    <where>
+      <if test="searchKeyword != null">
+        title LIKE concat('%',#{searchKeyword},'%')
+      </if>
+    </where>
+
+    limit #{startLimitNum},#{endLimitNum}
+
+  </select>
+
+
+  <select id="selectOnePost" parameterType="long" resultMap="donationPostMap">
+    select
+      DP.serial_num,
+      DP.title,
+      DP.story_contents,
+      DP.address,
+      DP.volunteer_start_date,
+      DP.volunteer_end_date,
+      DP.reg_date,
+      DP.donating_deadline_date
+
+
+    from donation_post DP
+
+    where DP.serial_num = #{serialNum}
+  </select>
+
+  <select id="lazySelectFileInfo" resultType="FileInfo">
+    select
+      f.serial_num as serial_num,
+      f.file_type,
+      f.file_size,
+      f.file_purpose
+    from file_info f
+    where f.post_serial_num = #{postSerialNum}
+  </select>
+
+
+  <update id="updatePost" parameterType="DonationPost">
+    UPDATE DONATION_POST
+    SET
+    <if test="title != null">
+      TITLE = #{title}
+    </if>
+    WHERE serial_num = #{serialNum}
+  </update>
+
+  <delete id="deletePost" parameterType="int">
+    DELETE FROM DONATION_POST
+    WHERE serial_num = #{serialNum}
+  </delete>
+
+  <!--
+  <select id="countPost" resultType="int">
+      SELECT
+          COUNT(*)
+      FROM DONATION_POST
+  </select>
+  -->
 </mapper>

@@ -1,7 +1,6 @@
-package org.givenness.backend;
+package org.givenness.backend.infrastructure;
 
-import lombok.extern.log4j.Log4j;
-import org.junit.Test;
+
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -10,15 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("dev")
-@Log4j
 @Transactional
-public class CalypsoApiserverApplicationTests {
-
-
-    @Test
-    public void contextLoads() {
-
-    }
+@ActiveProfiles("test")
+public abstract class DefaultAbstractTest {
 
 }

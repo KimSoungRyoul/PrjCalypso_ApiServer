@@ -1,4 +1,4 @@
-package org.givenness.backend.model.volunteerlog.valueobj;
+package org.givenness.backend.model.volunteerhistory.valueobj;
 
 public enum MarginalizedType {
   OLD_MAN_ALONE,

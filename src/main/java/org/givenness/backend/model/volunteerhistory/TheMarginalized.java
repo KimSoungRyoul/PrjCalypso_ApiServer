@@ -1,11 +1,11 @@
-package org.givenness.backend.model.volunteerlog;
+package org.givenness.backend.model.volunteerhistory;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import java.util.Date;
 import lombok.Data;
 import org.givenness.backend.model.member.TheMarginalizedAdminMemberInfo;
-import org.givenness.backend.model.volunteerlog.valueobj.MarginalizedType;
+import org.givenness.backend.model.volunteerhistory.valueobj.MarginalizedType;
 
 
 @Data

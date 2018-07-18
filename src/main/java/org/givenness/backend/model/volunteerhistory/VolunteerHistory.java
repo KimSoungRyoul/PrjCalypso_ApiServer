@@ -1,4 +1,4 @@
-package org.givenness.backend.model.volunteerlog;
+package org.givenness.backend.model.volunteerhistory;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -9,7 +9,7 @@ import org.givenness.backend.model.post.DonationPost;
 
 
 @Data
-public class VolunteerLog {
+public class VolunteerHistory {
 
 
   private long serialNum;
